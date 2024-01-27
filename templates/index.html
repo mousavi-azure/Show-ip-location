@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        img {
+            max-width: 200px;
+            border-radius: 5px;
+        }
+	    main {
+            flex-grow: 1; 
+        }
+        footer {
+            padding: 10px;
+            background-color: #f0f0f0;
+            margin-top: 100px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>IP Details</h1>
+    <img src="{{ client_details['flag'] }}" alt="Flag">
+    <ul>
+        <li><strong>IP:</strong> {{ client_details['ip'] }}</li>
+		<li><strong>Continent:</strong> {{ client_details['continent_name'] }}</li>
+		<li><strong>Country:</strong> {{ client_details['country_name'] }}</li>
+        <li><strong>City:</strong> {{ client_details['city'] }}</li>
+        <li><strong>Region:</strong> {{ client_details['region'] }}</li>
+        <li><strong>ISP:</strong> {{ client_details['asn']['name'] }}</li>
+        <li><strong>Currency:</strong> {{ client_details['currency']['name'] }} ({{ client_details['currency']['code'] }})</li>
+        <li><strong>Calling Code:</strong> +{{ client_details['calling_code'] }}</li>
+    </ul>
+	<footer>
+        <p>Developed by <a href="https://mousavi.dev" target="_blank">Mostafa Mousavi</a></p>
+    </footer>
+</body>
+</html>
