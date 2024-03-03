@@ -1,14 +1,22 @@
 from flask import Flask, request, jsonify, render_template
 import requests
 from datetime import datetime, timedelta
+import json
 
 app = Flask(__name__)
 
-IPDATA_API_KEY = '6e712aba1626089ace36c9a89e31430fb267f14e0d16666f2b0ca4d4'  # Replace with your actual API key
+def load_config():
+    with open('config.json', 'r') as f:
+        return json.load(f)
+
+config = load_config()
+
+IPDATA_API_KEY = config.get('IPDATA_API_KEY', '')
+API_BASE_URL = config.get('API_BASE_URL', '')
 
 def get_client_details_api(ip):
     # Make an API call to ipdata
-    response = requests.get(f'https://api.ipdata.co/{ip}?api-key={IPDATA_API_KEY}')
+    response = requests.get(f'{API_BASE_URL}/{ip}?api-key={IPDATA_API_KEY}')
     data = response.json()
     
     current_time = datetime.strptime(data['time_zone']['current_time'], '%Y-%m-%dT%H:%M:%S%z')
@@ -27,7 +35,7 @@ def get_client_details_api(ip):
  
 def get_client_details_web(ip):
     # Make an API call to ipdata
-    response = requests.get(f'https://api.ipdata.co/{ip}?api-key={IPDATA_API_KEY}')
+    response = requests.get(f'{API_BASE_URL}/{ip}?api-key={IPDATA_API_KEY}')
     data = response.json()
     return data
 
@@ -47,4 +55,3 @@ def get_client_api():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
